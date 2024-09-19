@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
+import 'remixicon/fonts/remixicon.css';
+
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/providers/Theme";
 
