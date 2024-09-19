@@ -1,7 +1,6 @@
 "use client";
 
 import { Eye, EyeOff, RefreshCcw } from "lucide-react";
-import React, { useState, useEffect } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 interface MetricCardProps {

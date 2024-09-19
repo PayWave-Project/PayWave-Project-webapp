@@ -9,9 +9,6 @@ const DynamicHeaderText = () => {
 
   const isDashboardPage = pathname === "/dashboard";
   const isTransactionsPage = pathname === "/transactions";
-  const isWalletPage = pathname === "/wallet";
-  const isReportsPage = pathname === "/reports";
-  const isSettingsPage = pathname === "/settings";
 
   return (
     <div>

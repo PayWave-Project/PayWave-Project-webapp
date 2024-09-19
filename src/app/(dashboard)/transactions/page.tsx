@@ -7,11 +7,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { Check, ChevronDown, MoreHorizontal, X } from "lucide-react";
-import { TransactionType, transactions } from "../dashboard/page";
+import { Check, ChevronDown, MoreHorizontal } from "lucide-react";
 import TransactionModal from "@/components/common/TransactionModal";
+import { transactions, TransactionType } from "@/types/data";
 
-const page = () => {
+const TransactionsPage = () => {
   const [typeFilter, setTypeFilter] = useState("All types");
   const [statusFilter, setStatusFilter] = useState("All status");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -290,4 +290,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default TransactionsPage;
