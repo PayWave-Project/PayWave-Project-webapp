@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { LoginForm } from "@/components/modules/login/AuthForm";
-import LoginSidebar from "@/components/common/LoginSidebar";
+import LoginSidebar from "@/components/modules/login/LoginSidebar";
 import Logo from "@/assets/icons/Logo-main.svg";
 import LogoWhite from "@/assets/icons/Logo-main-white.svg";
 
