@@ -1,7 +1,7 @@
 import React from "react";
 import { Copy, X } from "lucide-react";
-import { TransactionType } from "@/app/(dashboard)/dashboard/page";
 import { useToast } from "@/hooks/use-toast";
+import { TransactionType } from "@/types/data";
 
 interface TransactionModalProps {
   transaction: TransactionType;
