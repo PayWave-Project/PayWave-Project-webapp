@@ -1,47 +1,79 @@
-import { MoreHorizontal, CircleDollarSign } from "lucide-react";
-
 import MetricCard from "@/components/modules/dashboard/MetricCard";
 import { Icons } from "@/components/common/Icons";
 import Link from "next/link";
 
-const transactions = [
+export const transactions: TransactionType[] = [
   {
+    reference: "12",
     name: "Zenith Bank",
+    user: "Philip Joe",
     date: "10 may 2024, 08:00 AM",
     type: "Withdrawal",
+    description: "Payment by Don Alpha",
     amount: 50000.0,
+    fee: 10,
     status: "Pending",
   },
   {
+    reference: "17",
     name: "Opay",
+    user: "Philip Joe",
     date: "05 may 2024, 02:00 PM",
     type: "Transfer",
+    description: "Payment by Don Alpha",
+
     amount: 2500.0,
+    fee: 10,
     status: "Success",
   },
   {
+    reference: "90",
     name: "Deposit",
+    user: "Philip Joe",
     date: "29 may 2024, 07:30 PM",
     type: "Deposit",
+    description: "Payment by Don Alpha",
+
     amount: 12500.0,
+    fee: 10,
     status: "Success",
   },
   {
+    reference: "33",
     name: "Deposit",
+    user: "Philip Joe",
     date: "15 may 2024, 08:00 PM",
     type: "Deposit",
+    description: "Payment by Don Alpha",
+
     amount: 3100.0,
+    fee: 10,
     status: "Success",
   },
   {
+    reference: "83",
     name: "Deposit",
+    user: "Philip Joe",
     date: "10 may 2024, 08:00 AM",
     type: "Deposit",
+    description: "Payment by Don Alpha",
+
     amount: 100000.0,
+    fee: 10,
     status: "Failed",
   },
 ];
-
+export type TransactionType = {
+  reference: string;
+  name: string;
+  user: string;
+  date: string;
+  type: string;
+  amount: number;
+  description: string;
+  fee: number;
+  status: string;
+};
 const metricData = [
   {
     title: "Total Balance",
@@ -128,66 +160,64 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-400 dark:divide-gray-600">
-            <thead className="bg-gray-50 dark:bg-gray-900">
-              <tr>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider hidden sm:table-cell">
-                  Date
-                </th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider hidden md:table-cell">
-                  Type
-                </th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                  Amount
-                </th>
-                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="relative px-4 sm:px-6 py-3 hidden sm:table-cell">
-                  <span className="sr-only">Actions</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-400 dark:divide-gray-600">
-              {transactions.map((transaction, index) => (
-                <tr key={index}>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      {transaction.name === "Stripe" && (
-                        <CircleDollarSign className="h-6 w-6 text-gray-400 dark:text-white mr-2" />
-                      )}
-                      {transaction.name === "Facebook Charge" && (
-                        <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-gray-800 mr-2"></div>
-                      )}
-                      {transaction.name !== "Stripe" &&
-                        transaction.name !== "Facebook Charge" && (
-                          <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-gray-800 mr-2"></div>
-                        )}
-                      <div className="text-sm font-medium text-gray-900 dark:text-white">
-                        {transaction.name}
+          {transactions.length > 0 ? (
+            <table className="min-w-full divide-y divide-gray-400 dark:divide-gray-600">
+              <thead className="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider hidden sm:table-cell">
+                    Date
+                  </th>
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider hidden md:table-cell">
+                    Type
+                  </th>
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+                    Amount
+                  </th>
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="relative px-4 sm:px-6 py-3 hidden sm:table-cell">
+                    <span className="sr-only">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-400 dark:divide-gray-600">
+                {transactions.map((transaction, index) => (
+                  <tr key={index}>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="size-10 rounded-full bg-gray-200 dark:bg-gray-800 mr-2"></div>
+                        <div className="flex flex-col gap-0.5 text-gray-800 dark:text-white">
+                          <p className="text-base font-bold">
+                            {transaction.user}
+                          </p>
+
+                          <p className="text-sm font-medium text-gray-500">
+                            {transaction.name}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-white hidden sm:table-cell">
-                    <div className="flex flex-col">
-                      <span>{transaction.date.split(", ")[0]}</span>
-                      <span className="text-xs text-gray-400">
-                        {transaction.date.split(", ")[1]}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-white hidden md:table-cell">
-                    {transaction.type}
-                  </td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    ₦{transaction.amount.toFixed(2)}
-                  </td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-lg 
+                    </td>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-white hidden sm:table-cell">
+                      <div className="flex flex-col">
+                        <span>{transaction.date.split(", ")[0]}</span>
+                        <span className="text-xs text-gray-400">
+                          {transaction.date.split(", ")[1]}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-white hidden md:table-cell">
+                      {transaction.type}
+                    </td>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                      ₦{transaction.amount.toFixed(2)}
+                    </td>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                      <span
+                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-lg 
                 ${
                   transaction.status === "Success"
                     ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
@@ -195,19 +225,21 @@ const Dashboard = () => {
                     ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
                     : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
                 }`}
-                    >
-                      {transaction.status}
-                    </span>
-                  </td>
-                  <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium hidden sm:table-cell">
-                    <button className="text-black dark:text-white p-2 rounded-lg bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 border border-gray-400 dark:border-gray-600">
-                      <MoreHorizontal className="h-5 w-5" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      >
+                        {transaction.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="h-[400px] flex justify-center items-center py-8">
+              <p className="text-gray-500 dark:text-gray-400">
+                No transactions found
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

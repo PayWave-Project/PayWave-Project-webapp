@@ -59,7 +59,7 @@ const Sidebar = () => {
               className={`block py-2.5 px-4 my-1 rounded transition duration-200 text-gray-700 dark:text-gray-400 ${
                 isActive(item.href)
                   ? "bg-primary !text-white"
-                  : "hover:bg-primary dark:hover:bg-gray-900 hover:text-white"
+                  : "dark:hover:text-white hover:text-primary"
               }`}
             >
               <item.icon className="inline-block mr-2" size={20} /> {item.label}
@@ -79,7 +79,7 @@ const Sidebar = () => {
               className={`block py-2.5 px-4 my-1 rounded transition duration-200 text-gray-700 dark:text-gray-400 ${
                 isActive(item.href)
                   ? "bg-primary dark:bg-gray-900 !text-white"
-                  : "hover:bg-primary dark:hover:bg-gray-900 hover:text-white"
+                  : "dark:hover:text-white hover:text-primary"
               }`}
             >
               <item.icon className="inline-block mr-2" size={20} /> {item.label}

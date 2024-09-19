@@ -1,20 +1,14 @@
-import { Bell, ChevronDown, Menu, Sun } from "lucide-react";
+import { Bell, ChevronDown, Menu } from "lucide-react";
+
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Icons } from "./Icons";
+import DynamicHeaderText from "./DynamicHeaderText";
 
 const Header = () => {
   return (
     <header className="bg-white dark:bg-black shadow-sm border-b border-gray-400 dark:border-gray-600">
       <div className="max-w-7xl mx-auto lg:mx-6 py-4 px-4 sm:px-6 lg:px-0">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
-              Good morning <Icons.sun className="inline-block size-10" />
-            </h1>
-            <p className="lg:flex hidden text-sm text-gray-500">
-              Check the latest updates on your accounts and transactions.
-            </p>
-          </div>
+          <DynamicHeaderText />
           <div className="ml-4 flex gap-4 items-center md:ml-6">
             <button className="hidden lg:flex p-2 rounded-lg bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border border-gray-400">
               <Bell className="h-6 w-6" aria-hidden="true" />
