@@ -1,9 +1,17 @@
-import { Bell, ChevronDown, Menu } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Bell, ChevronDown, Menu, X } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import DynamicHeaderText from "./DynamicHeaderText";
+import Sheet from "./Sheet";
 
 const Header = () => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const toggleSheet = () => setIsSheetOpen(!isSheetOpen);
+
   return (
     <header className="bg-white dark:bg-black shadow-sm border-b border-gray-100 dark:border-gray-800">
       <div className="max-w-7xl mx-auto lg:mx-6 py-4 px-4 sm:px-6 lg:px-0">
@@ -23,12 +31,20 @@ const Header = () => {
               </p>{" "}
               <ChevronDown className="h-6 w-6" aria-hidden="true" />
             </div>
-            <button className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border border-gray-400">
-              <Menu className="h-6 w-6" aria-hidden="true" />
+            <button
+              className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border border-gray-400"
+              onClick={toggleSheet}
+            >
+              {isSheetOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
       </div>
+      <Sheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)} />
     </header>
   );
 };
