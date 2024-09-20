@@ -25,7 +25,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-black flex flex-col border-r border-gray-400 dark:border-gray-600 justify-between w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+    <div className="bg-white dark:bg-black flex flex-col border-r border-gray-100 dark:border-gray-800 justify-between w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
       <div className="flex flex-col gap-10">
         <div className="flex items-center space-x-2 px-4">
           <Image
