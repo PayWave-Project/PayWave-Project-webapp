@@ -68,7 +68,7 @@ export function RegisterForm(
           title: "Registration successful",
           variant: "success",
         });
-        setIsContinue(false);
+        // setIsContinue(false);
         setIsLoading(false);
         setUserData({
           firstName: "",

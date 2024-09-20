@@ -8,8 +8,9 @@ import {
   useState,
 } from "react";
 import { Check, ChevronDown, MoreHorizontal } from "lucide-react";
-import TransactionModal from "@/components/common/TransactionModal";
-import { transactions, TransactionType } from "@/types/data";
+import { transactions } from "@/types/data";
+import { TransactionType } from "@/interfaces/transaction";
+import TransactionModal from "@/components/modals/TransactionModal";
 
 const TransactionsPage = () => {
   const [typeFilter, setTypeFilter] = useState("All types");
@@ -243,7 +244,7 @@ const TransactionsPage = () => {
                 ))}
               </tbody>
             </table>
-            <div className="flex justify-between items-center px-4 sm:px-6 py-4 border-t border-gray-400 dark:border-gray-600">
+            <div className="w-full flex justify-between items-center px-4 sm:px-6 py-4 border-t border-gray-400 dark:border-gray-600">
               <button
                 onClick={handlePreviousPage}
                 disabled={currentPage === 1}
