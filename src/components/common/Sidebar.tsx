@@ -12,6 +12,7 @@ import {
   Settings,
   HelpCircle,
   SendIcon,
+  ScanLine,
 } from "lucide-react";
 
 import DarkMode from "@/components/common/DarkMode";
@@ -22,7 +23,8 @@ import { Icons } from "./Icons";
 export const mainMenuItems = [
   { href: "/dashboard", icon: Home, label: "Dashboard" },
   { href: "/payments", icon: SendIcon, label: "Payment" },
-  { href: "/payments/create-qr", icon: Icons.qrcode, label: "Create QR code" },
+  { href: "/payments/create-qr", icon: Icons.qrcode, label: "Create QR" },
+  { href: "/payments/scan-qr", icon: ScanLine, label: "Scan QR" },
   { href: "/transactions", icon: FileText, label: "Transactions" },
   { href: "/wallet", icon: Wallet, label: "My Wallet" },
   { href: "/reports", icon: BarChart2, label: "Reports" },

@@ -3,12 +3,54 @@
 import { usePathname } from "next/navigation";
 
 import { Icons } from "./Icons";
+import { useTheme } from "next-themes";
 
 const DynamicHeaderText = () => {
   const pathname = usePathname();
+  const { theme } = useTheme();
 
   const isDashboardPage = pathname === "/dashboard";
   const isTransactionsPage = pathname === "/transactions";
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 5) return "Good night";
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    if (hour < 22) return "Good evening";
+    return "Good night";
+  };
+
+  const getIcon = () => {
+    const hour = new Date().getHours();
+    if (hour < 5 || hour >= 22)
+      return (
+        <Icons.night
+          className="inline-block size-10"
+          strokeColor={theme === "dark" ? "white" : "black"}
+        />
+      );
+    if (hour < 12)
+      return (
+        <Icons.morning
+          className="inline-block size-10"
+          strokeColor={theme === "dark" ? "white" : "black"}
+        />
+      );
+    if (hour < 18)
+      return (
+        <Icons.afternoon
+          className="inline-block size-10"
+          strokeColor={theme === "dark" ? "white" : "black"}
+        />
+      );
+    return (
+      <Icons.evening
+        className="inline-block size-10"
+        strokeColor={theme === "dark" ? "white" : "black"}
+      />
+    );
+  };
 
   return (
     <div>
@@ -22,7 +64,7 @@ const DynamicHeaderText = () => {
       {isDashboardPage && (
         <>
           <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
-            Good morning <Icons.sun className="inline-block size-10" />
+            {getGreeting()} {getIcon()}
           </h1>
           <p className="lg:flex hidden text-sm text-gray-500">
             Check the latest updates on your accounts and transactions.
