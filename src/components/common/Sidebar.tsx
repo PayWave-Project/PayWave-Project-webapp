@@ -11,11 +11,30 @@ import {
   BarChart2,
   Settings,
   HelpCircle,
+  SendIcon,
+  QrCode,
 } from "lucide-react";
 
 import DarkMode from "@/components/common/DarkMode";
 import logo from "@/assets/icons/Logo-main.png";
 import LogoWhite from "@/assets/icons/Logo-main-white.png";
+import { Icons } from "./Icons";
+
+type IconType = React.ComponentType<{ className?: string; size?: number }>;
+
+export const mainMenuItems = [
+  { href: "/dashboard", icon: Home, label: "Dashboard" },
+  { href: "/payments", icon: SendIcon, label: "Payment" },
+  { href: "/payments/create-qr", icon: Icons.qrcode, label: "Create QR code" },
+  { href: "/transactions", icon: FileText, label: "Transactions" },
+  { href: "/wallet", icon: Wallet, label: "My Wallet" },
+  { href: "/reports", icon: BarChart2, label: "Reports" },
+];
+
+export const subMenuItems = [
+  { href: "/settings", icon: Settings, label: "Setting" },
+  { href: "/help", icon: HelpCircle, label: "Help Center" },
+];
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -47,32 +66,29 @@ const Sidebar = () => {
           <p className="text-lg text-gray-500 font-semibold px-4 mb-2">
             Main Menu
           </p>
-          {[
-            { href: "/dashboard", icon: Home, label: "Dashboard" },
-            { href: "/transactions", icon: FileText, label: "Transactions" },
-            { href: "/wallet", icon: Wallet, label: "My Wallet" },
-            { href: "/reports", icon: BarChart2, label: "Reports" },
-          ].map((item, index) => (
+          {mainMenuItems.map((item, index) => (
             <Link
               key={index}
               href={item.href}
-              className={`block py-2.5 px-4 my-1 rounded transition duration-200 text-gray-700 dark:text-gray-400 ${
+              className={`flex items-center py-2.5 px-4 my-1 rounded transition duration-200 text-gray-700 dark:text-gray-400 ${
                 isActive(item.href)
                   ? "bg-primary !text-white"
                   : "dark:hover:text-white hover:text-primary"
               }`}
             >
-              <item.icon className="inline-block mr-2" size={20} /> {item.label}
+              {React.isValidElement(item.icon) ? (
+                <Icons.qrcode />
+              ) : (
+                <item.icon size={24} />
+              )}
+              <p className="ml-2">{item.label}</p>
             </Link>
           ))}
           <p className="text-lg text-gray-500 font-semibold px-4 mt-4 mb-2">
             Preferences
           </p>
 
-          {[
-            { href: "/settings", icon: Settings, label: "Setting" },
-            { href: "/help", icon: HelpCircle, label: "Help Center" },
-          ].map((item, index) => (
+          {subMenuItems.map((item, index) => (
             <Link
               key={index}
               href={item.href}
@@ -82,7 +98,7 @@ const Sidebar = () => {
                   : "dark:hover:text-white hover:text-primary"
               }`}
             >
-              <item.icon className="inline-block mr-2" size={20} /> {item.label}
+              <item.icon className="inline-block mr-2" size={24} /> {item.label}
             </Link>
           ))}
         </nav>
