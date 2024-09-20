@@ -12,15 +12,12 @@ import {
   Settings,
   HelpCircle,
   SendIcon,
-  QrCode,
 } from "lucide-react";
 
 import DarkMode from "@/components/common/DarkMode";
 import logo from "@/assets/icons/Logo-main.png";
 import LogoWhite from "@/assets/icons/Logo-main-white.png";
 import { Icons } from "./Icons";
-
-type IconType = React.ComponentType<{ className?: string; size?: number }>;
 
 export const mainMenuItems = [
   { href: "/dashboard", icon: Home, label: "Dashboard" },

@@ -1,13 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import {
-  Home,
-  FileText,
-  Wallet,
-  BarChart2,
-  Settings,
-  HelpCircle,
-  SendIcon,
-} from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";

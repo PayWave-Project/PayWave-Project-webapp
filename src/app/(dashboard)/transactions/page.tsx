@@ -8,9 +8,9 @@ import {
   useState,
 } from "react";
 import { Check, ChevronDown, MoreHorizontal } from "lucide-react";
-import TransactionModal from "@/components/common/TransactionModal";
 import { transactions } from "@/types/data";
 import { TransactionType } from "@/interfaces/transaction";
+import TransactionModal from "@/components/modals/TransactionModal";
 
 const TransactionsPage = () => {
   const [typeFilter, setTypeFilter] = useState("All types");

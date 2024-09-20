@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 import MetricCard from "@/components/modules/dashboard/MetricCard";
 import { Icons } from "@/components/common/Icons";
-import Link from "next/link";
 import { metricData, quickActions, transactions } from "@/types/data";
+import AddMoneyBtn from "@/components/common/AddMoneyBtn";
 
 const Dashboard = () => {
   return (
@@ -11,9 +13,7 @@ const Dashboard = () => {
           <h2 className="text-2xl font-semibold text-black dark:text-white">
             Dashboard
           </h2>
-          <button className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition duration-150 ease-in-out">
-            + Add new
-          </button>
+          <AddMoneyBtn />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {metricData.map((metric, index) => (
