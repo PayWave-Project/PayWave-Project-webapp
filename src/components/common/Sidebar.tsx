@@ -20,7 +20,7 @@ import {
 import logo from "@/assets/icons/Logo-main.png";
 import LogoWhite from "@/assets/icons/Logo-main-white.png";
 import SmLogo from "@/assets/icons/Logo.svg";
-import SmLogoWhite from "@/assets/icons/Logo-white.svg";
+import SmLogoWhite from "../../assets/icons/Logo-white.svg";
 import { Icons } from "./Icons";
 
 export const mainMenuItems = [
