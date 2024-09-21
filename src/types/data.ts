@@ -7,7 +7,7 @@ export const transactions: TransactionType[] = [
     user: "Philip Joe",
     date: "10 may 2024, 08:00 AM",
     type: "Withdrawal",
-    description: "Payment by Don Alpha",
+    description: "Payment for food",
     amount: 50000.0,
     fee: 10,
     status: "Pending",
@@ -71,21 +71,25 @@ export const metricData = [
 
 export const quickActions = [
   {
+    href: "/payments/create-qr",
     icon: "qrcode",
     title: "Create QR Code",
     description: "Create a QR code to receive payments",
   },
   {
+    href: "/payments/send-money",
     icon: "send",
     title: "Send Money",
     description: "Send money to your friends and customers",
   },
   {
+    href: "/payments/withdraw",
     icon: "withdraw",
     title: "Withdraw",
     description: "Withdraw your funds to your bank account",
   },
   {
+    href: "/payments/deposit",
     icon: "deposit",
     title: "Deposit",
     description: "Make a deposit to your account",

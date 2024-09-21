@@ -31,7 +31,8 @@ const Dashboard = () => {
             {quickActions.map((action, index) => {
               const IconComponent = Icons[action.icon as keyof typeof Icons];
               return (
-                <div
+                <Link
+                  href={action.href}
                   key={index}
                   className="bg-white dark:bg-gray-900 border border-gray-400 hover:border-primary rounded-lg shadow transition duration-150 ease-in-out cursor-pointer flex-shrink-0"
                 >
@@ -44,7 +45,7 @@ const Dashboard = () => {
                       {action.description}
                     </p>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

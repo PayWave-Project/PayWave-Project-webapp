@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/common/Icons";
@@ -15,6 +16,7 @@ interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function LoginForm({ className, ...props }: LoginFormProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -27,6 +29,9 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       });
       setIsLoading(false);
     }, 3000);
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 3500);
   }
 
   return (
