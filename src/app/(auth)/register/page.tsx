@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { RegisterForm } from "@/components/modules/register/RegisterForm";
 import LoginSidebar from "@/components/modules/login/LoginSidebar";
-import Logo from "@/assets/icons/Logo-main.svg";
+import Logo from "@/assets/icons/Logo-main.png";
 import LogoWhite from "@/assets/icons/Logo-main-white.png";
 
 export const metadata: Metadata = {
@@ -20,16 +20,16 @@ const RegisterPage = () => {
             <Image
               src={Logo}
               alt="Logo"
-              width={100}
-              height={100}
-              className="w-[210px] h-[150px] relative z-10 dark:hidden lg:w-[150px] lg:h-[60px]"
+              width={150}
+              height={50}
+              className="relative z-10 dark:hidden lg:w-[150px] lg:h-[60px]"
             />
             <Image
               src={LogoWhite}
               alt="Logo"
-              width={100}
-              height={100}
-              className="w-[150px] h-[60px] relative z-10 hidden dark:block"
+              width={150}
+              height={50}
+              className="relative z-10 hidden dark:block"
             />
           </div>
           <RegisterForm />

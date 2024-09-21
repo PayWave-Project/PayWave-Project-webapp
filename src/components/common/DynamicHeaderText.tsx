@@ -11,6 +11,11 @@ const DynamicHeaderText = () => {
 
   const isDashboardPage = pathname === "/dashboard";
   const isTransactionsPage = pathname === "/transactions";
+  const isPaymentPage = pathname === "/payments";
+  const isCreateQrPage = pathname === "/payments/create-qr";
+  const isNotificationsPage = pathname === "/notifications";
+  const isSettingsPage = pathname === "/settings";
+  const isWalletPage = pathname === "/wallet";
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -58,6 +63,31 @@ const DynamicHeaderText = () => {
         {isTransactionsPage && (
           <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
             Transactions
+          </h1>
+        )}
+        {isPaymentPage && (
+          <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
+            Payments
+          </h1>
+        )}
+        {isCreateQrPage && (
+          <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
+            Create QR Code
+          </h1>
+        )}
+        {isNotificationsPage && (
+          <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
+            Notifications
+          </h1>
+        )}
+        {isSettingsPage && (
+          <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
+            Settings
+          </h1>
+        )}
+        {isWalletPage && (
+          <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
+            Wallet
           </h1>
         )}
       </div>
