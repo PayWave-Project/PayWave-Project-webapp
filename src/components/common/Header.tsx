@@ -91,6 +91,7 @@ const Header = () => {
                 onCancel={() => setIsLogoutModalOpen(false)}
               />
             )}
+
             <button
               className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border border-gray-400"
               onClick={toggleSheet}
