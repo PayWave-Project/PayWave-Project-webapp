@@ -20,38 +20,36 @@ const Dashboard = () => {
           {metricData.map((metric, index) => (
             <MetricCard key={index} title={metric.title} />
           ))}
-        </div>
-      </div>
-
-      <div>
-        <h2 className="text-2xl font-semibold text-black dark:text-white mb-4">
-          Quick Actions
-        </h2>
-        <div className="overflow-x-auto">
-          <div className="flex items-center gap-6 pb-4">
-            {quickActions.map((action, index) => {
-              const IconComponent = Icons[action.icon as keyof typeof Icons];
-              return (
-                <Link
-                  href={action.href}
-                  key={index}
-                  className="bg-white dark:bg-gray-900 border border-gray-400 hover:border-primary rounded-lg shadow transition duration-150 ease-in-out cursor-pointer flex-shrink-0"
-                >
-                  <div className="w-[200px] md:w-[255px] h-[140px] md:h-[160px] md:px-6 px-3 py-4 flex flex-col gap-2">
-                    <IconComponent className="h-6 w-6 mr-2 fill-black dark:fill-white" />
-                    <h3 className="md:text-lg text-sm font-semibold text-black dark:text-white">
-                      {action.title}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      {action.description}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
+          <div className="bg-slate-200 dark:bg-gray-800 flex justify-between items-center text-primary lg:py-10 lg:px-8 p-4 rounded-lg shadow">
+            <div>
+              <h3 className="text-[16px] font-medium dark:text-white/50  mb-1">
+                Total Deposits
+              </h3>
+              <p className="text-2xl font-bold text-nowrap break-words dark:text-white">
+                ₦23,958.00
+              </p>
+            </div>
+            <div>
+              <TrendingDown size={45} color="#3e9392" />
+            </div>
+          </div>
+          <div className="bg-slate-200 dark:bg-gray-800 flex justify-between items-center text-primary lg:py-10 lg:px-8 p-4 rounded-lg shadow">
+            <div>
+              <h3 className="text-[16px] font-medium dark:text-white/50 mb-1">
+                Total Withdrawal
+              </h3>
+              <p className="text-2xl font-bold text-nowrap break-words dark:text-white">
+                ₦999,958.00
+              </p>
+            </div>
+            <div>
+              <TrendingUp size={45} color="#c90c0c" />
+            </div>
           </div>
         </div>
       </div>
+
+
 
       <div>
         <div>

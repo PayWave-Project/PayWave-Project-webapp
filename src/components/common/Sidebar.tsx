@@ -54,7 +54,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`bg-white dark:bg-black h-screen sticky top-0 hidden md:flex flex-col border-r border-gray-400 dark:border-gray-600 justify-between ${
+      className={`bg-white dark:bg-black h-screen sticky top-0 hidden md:flex flex-col border-r border-gray-100 dark:border-gray-600 justify-between ${
         isCollapsed ? "lg:!w-20 " : "lg:w-64"
       } space-y-6 py-7 px-2 transform transition-all duration-200 ease-in-out md:w-20 lg:w-64 `}
     >
