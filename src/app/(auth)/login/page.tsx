@@ -4,8 +4,8 @@ import Image from "next/image";
 
 import { LoginForm } from "@/components/modules/login/AuthForm";
 import LoginSidebar from "@/components/modules/login/LoginSidebar";
-import Logo from "@/assets/icons/Logo-main.svg";
-import LogoWhite from "@/assets/icons/Logo-main-white.svg";
+import Logo from "@/assets/icons/Logo-main.png";
+import LogoWhite from "@/assets/icons/Logo-main-white.png";
 
 export const metadata: Metadata = {
   title: "PayWave | Login",
@@ -21,16 +21,16 @@ const LoginPage = () => {
             <Image
               src={Logo}
               alt="Logo"
-              width={100}
-              height={100}
-              className="w-[210px] h-[150px] relative z-10 dark:hidden"
+              width={150}
+              height={150}
+              className="relative z-10 dark:hidden"
             />
             <Image
               src={LogoWhite}
               alt="Logo"
-              width={100}
-              height={100}
-              className="w-[210px] h-[150px] relative z-10 hidden dark:block"
+              width={150}
+              height={50}
+              className="relative z-10 hidden dark:block"
             />
             <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
             <Link href="/register" className="text-sm text-muted-foreground">

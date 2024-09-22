@@ -1,24 +1,18 @@
 "use client";
 
-import * as React from "react";
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
+import ThemeIcon from "./ThemeIcon";
+
 const DarkMode = () => {
-  const { setTheme, theme } = useTheme();
+  const { theme } = useTheme();
 
   const currentTheme = theme === "dark" ? "Light Mode" : "Dark Mode";
 
   return (
-    <div className="w-full flex items-center justify-between">
+    <div className="w-full flex items-center justify-between gap-4">
       <p>{currentTheme}</p>
-      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-        {theme === "light" ? (
-          <Moon className="h-[1.2rem] w-[1.2rem]" />
-        ) : (
-          <Sun className="h-[1.2rem] w-[1.2rem]" />
-        )}
-      </button>
+      <ThemeIcon />
     </div>
   );
 };
