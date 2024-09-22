@@ -37,7 +37,7 @@ const Header = () => {
   const toggleSheet = () => setIsSheetOpen(!isSheetOpen);
 
   return (
-    <header className="bg-white dark:bg-black shadow-sm border-b border-gray-400 dark:border-gray-600">
+    <header className="bg-white dark:bg-black shadow-sm border-b border-gray-100 dark:border-gray-600">
       <div className="lg:mx-6 py-4 px-4 sm:px-6 lg:px-0">
         <div className="flex items-center justify-between">
           <DynamicHeaderText />

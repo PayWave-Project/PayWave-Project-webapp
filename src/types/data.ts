@@ -68,7 +68,16 @@ export const metricData = [
     value: "15,456.00",
   },
 ];
-
+export const dashboardStat = {
+  deposit: {
+    title: "Total Deposits",
+    value: "15,456.00",
+  },
+  withdrawal: {
+    title: "Total Withdrawals",
+    value: "15,456.00",
+  },
+};
 export const quickActions = [
   {
     href: "/payments/create-qr",
