@@ -17,7 +17,7 @@ const Dashboard = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {metricData.map((metric, index) => (
-            <MetricCard key={index} title={metric.title} value={metric.value} />
+            <MetricCard key={index} title={metric.title} />
           ))}
         </div>
       </div>
