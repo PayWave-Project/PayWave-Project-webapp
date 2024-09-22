@@ -1,0 +1,29 @@
+{
+  "theme_color": "#143685",
+  "background_color": "#000000",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "any",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "en-US",
+  "name": "Paywave",
+  "short_name": "Paywave - Contactless Payments",
+  "scope": "/",
+  "start_url": "/",
+  "description": "The future of contactless payments.",
+  "id": "app-paywave.netlify.app/login",
+  "splash_pages": true
+}
