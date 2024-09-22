@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Mulish } from "next/font/google";
 import "./globals.css";
 
@@ -16,6 +16,27 @@ const mulish = Mulish({
 export const metadata: Metadata = {
   title: "PayWave",
   description: "The future of contactless payments.",
+  generator: "Next.js",
+  manifest: "/manifest.json",
+  keywords: ["", "next14", "pwa", "next-pwa"],
+  authors: [
+    {
+      name: "PayWave",
+      url: "app-paywave.netlify.app",
+    },
+  ],
+  icons: [
+    { rel: "apple-touch-icon", url: "icons/icon-128x128.png" },
+    { rel: "icon", url: "icons/icon-128x128.png" },
+  ],
+};
+
+export const viewport: Viewport = {
+  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#fff" }],
+  minimumScale: 1,
+  initialScale: 1,
+  width: "device-width",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

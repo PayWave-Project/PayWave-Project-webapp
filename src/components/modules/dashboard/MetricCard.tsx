@@ -20,6 +20,8 @@ const MetricCard: React.FC<MetricCardProps> = ({ title }) => {
     return Math.floor(Math.random() * (10000000 - 10000 + 1) + 10000);
   };
 
+  console.log(generateRandomValue());
+
   const formatNumber = (num: number): string => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
