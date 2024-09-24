@@ -1,3 +1,5 @@
+import { TransactionType } from "@/interfaces/transaction";
+
 export const transactions: TransactionType[] = [
   {
     reference: "12",
@@ -5,7 +7,7 @@ export const transactions: TransactionType[] = [
     user: "Philip Joe",
     date: "10 may 2024, 08:00 AM",
     type: "Withdrawal",
-    description: "Payment by Don Alpha",
+    description: "Payment for food",
     amount: 50000.0,
     fee: 10,
     status: "Pending",
@@ -59,41 +61,44 @@ export const transactions: TransactionType[] = [
     status: "Failed",
   },
 ];
-export type TransactionType = {
-  reference: string;
-  name: string;
-  user: string;
-  date: string;
-  type: string;
-  amount: number;
-  description: string;
-  fee: number;
-  status: string;
-};
+
 export const metricData = [
   {
     title: "Total Balance",
     value: "15,456.00",
   },
 ];
-
+export const dashboardStat = {
+  deposit: {
+    title: "Total Deposits",
+    value: "15,456.00",
+  },
+  withdrawal: {
+    title: "Total Withdrawals",
+    value: "15,456.00",
+  },
+};
 export const quickActions = [
   {
+    href: "/payments/create-qr",
     icon: "qrcode",
     title: "Create QR Code",
     description: "Create a QR code to receive payments",
   },
   {
+    href: "/payments/send-money",
     icon: "send",
     title: "Send Money",
     description: "Send money to your friends and customers",
   },
   {
+    href: "/payments/withdraw",
     icon: "withdraw",
     title: "Withdraw",
     description: "Withdraw your funds to your bank account",
   },
   {
+    href: "/payments/deposit",
     icon: "deposit",
     title: "Deposit",
     description: "Make a deposit to your account",
