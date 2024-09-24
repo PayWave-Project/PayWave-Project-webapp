@@ -4,7 +4,6 @@ import MetricCard from "@/components/modules/dashboard/MetricCard";
 import { Icons } from "@/components/common/Icons";
 import { metricData, quickActions, transactions } from "@/types/data";
 import AddMoneyBtn from "@/components/common/AddMoneyBtn";
-import { TrendingDown, TrendingUp } from "lucide-react";
 
 const Dashboard = () => {
   return (
@@ -16,40 +15,12 @@ const Dashboard = () => {
           </h2>
           <AddMoneyBtn />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <>
           {metricData.map((metric, index) => (
             <MetricCard key={index} title={metric.title} />
           ))}
-          <div className="bg-slate-200 dark:bg-gray-800 flex justify-between items-center text-primary lg:py-10 lg:px-8 p-4 rounded-lg shadow">
-            <div>
-              <h3 className="text-[16px] font-medium dark:text-white/50  mb-1">
-                Total Deposits
-              </h3>
-              <p className="text-2xl font-bold text-nowrap break-words dark:text-white">
-                ₦23,958.00
-              </p>
-            </div>
-            <div>
-              <TrendingDown size={45} color="#3e9392" />
-            </div>
-          </div>
-          <div className="bg-slate-200 dark:bg-gray-800 flex justify-between items-center text-primary lg:py-10 lg:px-8 p-4 rounded-lg shadow">
-            <div>
-              <h3 className="text-[16px] font-medium dark:text-white/50 mb-1">
-                Total Withdrawal
-              </h3>
-              <p className="text-2xl font-bold text-nowrap break-words dark:text-white">
-                ₦999,958.00
-              </p>
-            </div>
-            <div>
-              <TrendingUp size={45} color="#c90c0c" />
-            </div>
-          </div>
-        </div>
+        </>
       </div>
-
-
 
       <div>
         <div>

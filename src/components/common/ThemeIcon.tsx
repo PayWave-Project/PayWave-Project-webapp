@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 const ThemeIcon = () => {
   const { setTheme, theme } = useTheme();
   return (
-    <button
+    <div
       className="w-full flex items-center gap-2"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
@@ -15,7 +15,7 @@ const ThemeIcon = () => {
         <Sun className="size-4 text-gray-700 dark:text-white dark:hover:text-white hover:text-primary" />
       )}{" "}
       <p>Theme</p>
-    </button>
+    </div>
   );
 };
 

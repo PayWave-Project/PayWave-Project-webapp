@@ -9,7 +9,6 @@ import { mainMenuItems, subMenuItems } from "./Sidebar";
 import { LogOut } from "lucide-react";
 import ConfirmLogoutModal from "../modals/ConfirmLogoutModal";
 
-
 interface SheetProps {
   isOpen: boolean;
   onClose: () => void;
@@ -130,7 +129,7 @@ const Sheet: React.FC<SheetProps> = ({ isOpen, onClose }) => {
                 }}
                 className="flex justify-between text-gray-700 dark:text-gray-400 hover:text-red-500 px-4 items-center gap-2 cursor-pointer"
               >
-                Logout <LogOut />
+                <LogOut /> <p>Logout</p>
               </button>
             </div>
           </nav>
@@ -140,7 +139,6 @@ const Sheet: React.FC<SheetProps> = ({ isOpen, onClose }) => {
         <ConfirmLogoutModal onCancel={() => setIsLogoutModalOpen(false)} />
       )}
     </>
-
   );
 };
 

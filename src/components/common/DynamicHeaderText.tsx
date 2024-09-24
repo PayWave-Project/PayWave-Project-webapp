@@ -31,27 +31,27 @@ const DynamicHeaderText = () => {
     if (hour < 5 || hour >= 22)
       return (
         <Icons.night
-          className="inline-block size-10"
+          className="inline-block size-8"
           strokeColor={theme === "dark" ? "white" : "black"}
         />
       );
     if (hour < 12)
       return (
         <Icons.morning
-          className="inline-block size-10"
+          className="inline-block size-8"
           strokeColor={theme === "dark" ? "white" : "black"}
         />
       );
     if (hour < 18)
       return (
         <Icons.afternoon
-          className="inline-block size-10"
+          className="inline-block size-8"
           strokeColor={theme === "dark" ? "white" : "black"}
         />
       );
     return (
       <Icons.evening
-        className="inline-block size-10"
+        className="inline-block size-8"
         strokeColor={theme === "dark" ? "white" : "black"}
       />
     );
@@ -93,7 +93,7 @@ const DynamicHeaderText = () => {
       </div>
       {isDashboardPage && (
         <>
-          <h1 className="lg:text-2xl text-lg font-semibold text-black dark:text-white">
+          <h1 className="flex items-center gap-2 lg:text-2xl text-lg font-semibold text-black dark:text-white">
             {getGreeting()} {getIcon()}
           </h1>
           <p className="lg:flex hidden text-sm text-gray-500">

@@ -9,8 +9,11 @@ import Sheet from "./Sheet";
 import ThemeIcon from "./ThemeIcon";
 import Link from "next/link";
 import ConfirmLogoutModal from "../modals/ConfirmLogoutModal";
+import { useAuthStore } from "@/store";
 
 const Header = () => {
+  const firstName = useAuthStore((state) => state.firstName);
+
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -47,15 +50,15 @@ const Header = () => {
             </button>
             <Avatar className="flex">
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>PJ</AvatarFallback>
             </Avatar>
             <div className="relative">
               <div
                 onClick={toggleDropdown}
                 className="md:flex hidden items-center gap-1 cursor-pointer px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border border-gray-400"
               >
-                <p className="text-sm font-semibold text-black dark:text-white">
-                  John Doe{" "}
+                <p className="min-w-[80px] text-sm capitalize font-semibold text-black dark:text-white">
+                  {firstName}
                 </p>{" "}
                 <ChevronDown className="h-6 w-6" aria-hidden="true" />
               </div>

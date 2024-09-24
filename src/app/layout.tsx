@@ -2,10 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Mulish } from "next/font/google";
 import "./globals.css";
 
-import "remixicon/fonts/remixicon.css";
-
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/providers/Theme";
+import TanstackProvider from "@/components/providers/Tanstack";
 
 const mulish = Mulish({
   subsets: ["latin"],
@@ -47,10 +46,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${mulish.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          {children}
-        </ThemeProvider>
-        <Toaster />
+        <TanstackProvider>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            {children}
+          </ThemeProvider>
+          <Toaster />
+        </TanstackProvider>
       </body>
     </html>
   );
