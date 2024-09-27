@@ -4,10 +4,27 @@ import MetricCard from "@/components/modules/dashboard/MetricCard";
 import { Icons } from "@/components/common/Icons";
 import { metricData, quickActions, transactions } from "@/types/data";
 import AddMoneyBtn from "@/components/common/AddMoneyBtn";
+import { CircleAlert } from "lucide-react";
 
 const Dashboard = () => {
+  const isVerified = false;
   return (
     <div className="space-y-6">
+      <>
+        {!isVerified && (
+          <div className="flex justify-between items-center p-4 bg-red-100 rounded-lg">
+            <div className="text-red-800 flex items-center gap-2">
+              <CircleAlert />
+              Complete your KYC process to activate your account.
+            </div>
+            <Link href="/settings/kyc">
+              <button className="bg-red-800 hover:bg-red-800/90 text-red-100 px-4 py-2 rounded-lg">
+                Complete KYC
+              </button>
+            </Link>
+          </div>
+        )}
+      </>
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold text-black dark:text-white">

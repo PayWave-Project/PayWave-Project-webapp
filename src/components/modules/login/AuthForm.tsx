@@ -17,6 +17,7 @@ interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function LoginForm({ className, ...props }: LoginFormProps) {
   const { mutateAsync, isLoading } = useLoginMerchant();
+
   const { toast } = useToast();
   const router = useRouter();
 
@@ -25,6 +26,31 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     const formData = new FormData(event.target as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
+    // const handleSendOTP = async () => {
+    //   const emailError = isValidEmail(email);
+    //   if (emailError) {
+    //     toast({
+    //       title: emailError,
+    //       variant: "error",
+    //     });
+    //     return;
+    //   }
+    //   try {
+    //     const res = await sendOtp({
+    //       email: email,
+    //     });
+    //     toast({
+    //       title: res.data.message,
+    //       variant: "success",
+    //     });
+    //   } catch (error: any) {
+    //     toast({
+    //       title: error?.response?.data?.message || "Failed to send OTP",
+    //       variant: "error",
+    //     });
+    //   }
+    // };
 
     if (!email || !password) {
       toast({
@@ -42,14 +68,26 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
         variant: "success",
       });
       const token = res.data.token;
-      const merchant_id = res.data.merchant.userId;
+      const id = res.data.merchant._id;
       const firstName = res.data.merchant.firstName;
+      const lastName = res.data.merchant.lastName;
+      const merchantEmail = res.data.merchant.email;
+      const merchantId = res.data.merchant.merchantId;
       const businessName = res.data.merchant.businessName;
       const phoneNumber = res.data.merchant.phoneNumber;
 
       Cookies.set("token", token);
-      Cookies.set("merchant_id", merchant_id);
-      useAuthStore.getState().setAuthInfo(businessName, firstName, phoneNumber);
+      Cookies.set("id", id);
+      useAuthStore
+        .getState()
+        .setAuthInfo(
+          merchantId,
+          merchantEmail,
+          businessName,
+          lastName,
+          firstName,
+          phoneNumber
+        );
 
       setTimeout(() => {
         router.push("/dashboard");
@@ -71,6 +109,13 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
         errorMessage = "Invalid credentials";
       }
 
+      if (
+        errorMessage ===
+        "Sorry Merchant not verified yet. Check your mail to verify your account!"
+      ) {
+        router.push("/verify-account");
+      }
+
       toast({
         title: "Login failed.",
         description: errorMessage,
@@ -85,13 +130,10 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       <form onSubmit={onSubmit}>
         <div className="grid">
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               name="email"
-              placeholder="name@example.com"
               type="email"
               autoCapitalize="none"
               autoComplete="email"
@@ -100,13 +142,10 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
             />
           </div>
           <div className="grid gap-1 mt-8">
-            <Label className="sr-only" htmlFor="email">
-              Password
-            </Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               name="password"
-              placeholder="Password"
               type="password"
               autoCapitalize="none"
               autoComplete="password"

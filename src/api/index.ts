@@ -5,11 +5,12 @@ import { AxiosRequestConfig } from "axios";
 
 export const getConfig = (): AxiosRequestConfig => {
   const token = Cookies.get("token");
+  const authToken = `Bearer ${token}`;
 
   const headers: AxiosRequestConfig["headers"] = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    ...(token && { Authorization: `Bearer ${token}` }),
+    ...(token && { Authorization: authToken }),
   };
 
   return { headers };

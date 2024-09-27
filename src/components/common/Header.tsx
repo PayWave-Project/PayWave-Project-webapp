@@ -13,6 +13,7 @@ import { useAuthStore } from "@/store";
 
 const Header = () => {
   const firstName = useAuthStore((state) => state.firstName);
+  const lastName = useAuthStore((state) => state.lastName);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -36,6 +37,11 @@ const Header = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    setIsLogoutModalOpen(true);
+    setIsDropdownOpen(false);
+  };
+
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const toggleSheet = () => setIsSheetOpen(!isSheetOpen);
 
@@ -58,7 +64,7 @@ const Header = () => {
                 className="md:flex hidden items-center gap-1 cursor-pointer px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border border-gray-400"
               >
                 <p className="min-w-[80px] text-sm capitalize font-semibold text-black dark:text-white">
-                  {firstName}
+                  {firstName} {lastName}
                 </p>{" "}
                 <ChevronDown className="h-6 w-6" aria-hidden="true" />
               </div>
@@ -78,10 +84,7 @@ const Header = () => {
                     <Settings className="inline-block mr-2 h-4 w-4" /> Settings
                   </Link>
                   <button
-                    onClick={() => {
-                      setIsLogoutModalOpen(true);
-                      setIsDropdownOpen(false);
-                    }}
+                    onClick={handleLogout}
                     className="block px-4 py-2 text-sm text-red-500 dark:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:rounded-b-lg w-full text-left"
                   >
                     <LogOut className="inline-block mr-2 h-4 w-4" /> Logout
