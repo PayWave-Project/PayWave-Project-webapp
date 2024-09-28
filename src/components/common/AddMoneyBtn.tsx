@@ -51,12 +51,6 @@ const AddMoneyBtn = () => {
                 </button>
               </div>
               <BankDetailsModal />
-              <div className="mt-6">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Please make a transfer to this account to add money to your
-                  wallet.
-                </p>
-              </div>
             </div>
           </div>
         )}

@@ -14,6 +14,7 @@ import { useAuthStore } from "@/store";
 const Header = () => {
   const firstName = useAuthStore((state) => state.firstName);
   const lastName = useAuthStore((state) => state.lastName);
+  const profileImage = useAuthStore((state) => state.profileImage);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -55,8 +56,11 @@ const Header = () => {
               <Bell className="h-6 w-6" aria-hidden="true" />
             </button>
             <Avatar className="flex">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>PJ</AvatarFallback>
+              <AvatarImage src={profileImage || ""} alt="@shadcn" />
+              <AvatarFallback className="uppercase">
+                {firstName?.charAt(0)}
+                {lastName?.charAt(0)}
+              </AvatarFallback>
             </Avatar>
             <div className="relative">
               <div

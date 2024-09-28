@@ -5,9 +5,9 @@ import MainLogo from "@/assets/icons/Logo-main.png";
 
 export default function Loading() {
   return (
-    <div className="tw-flex tw-flex-col tw-items-center tw-justify-center tw-w-full tw-h-screen">
+    <div className="flex flex-col items-center justify-center w-full h-screen">
       <Image priority src={MainLogo} alt="Main logo" width={200} height={200} />
-      <LoaderCircle className="tw-animate-spin tw-mt-4" />
+      <LoaderCircle className="animate-spin mt-4" />
     </div>
   );
 }

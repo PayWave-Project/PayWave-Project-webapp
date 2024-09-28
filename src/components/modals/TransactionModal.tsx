@@ -1,10 +1,10 @@
 import React from "react";
 import { Copy, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { TransactionType } from "@/interfaces/transaction";
+import { transactionHistory } from "@/components/modules/dashboard/RecentTransactions";
 
 interface TransactionModalProps {
-  transaction: TransactionType;
+  transaction: transactionHistory;
   onClose: () => void;
 }
 
@@ -43,17 +43,17 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Transaction date
           </p>
-          <p>{transaction.date}</p>
+          <p>{transaction.time}</p>
         </div>
       </div>
       <div className="space-y-3">
         <div className="flex justify-between">
           <span className="text-gray-600 dark:text-gray-400">Account name</span>
-          <span className="font-medium">{transaction.user}</span>
+          <span className="font-medium">{transaction.reference}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-600 dark:text-gray-400">Bank name:</span>
-          <span className="font-medium">{transaction.name}</span>
+          <span className="font-medium">{transaction.reference}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-600 dark:text-gray-400">
@@ -71,17 +71,15 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
           <span className="text-gray-600 dark:text-gray-400">
             Transaction fees:
           </span>
-          <span className="font-medium">₦{transaction.fee.toFixed(2)}</span>
+          <span className="font-medium">₦{transaction.amount.toFixed(2)}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-600 dark:text-gray-400">Narration:</span>
-          <span className="font-medium">
-            {transaction.description || "N/A"}
-          </span>
+          <span className="font-medium">{transaction.reference || "N/A"}</span>
         </div>
         <div className="flex justify-between font-bold pt-2 border-t border-gray-300 dark:border-gray-600">
           <span>Transaction total:</span>
-          <span>₦{(transaction.amount + transaction.fee).toFixed(2)}</span>
+          <span>₦{(transaction.amount + transaction.amount).toFixed(2)}</span>
         </div>
       </div>
       <div className="mt-6 text-center">

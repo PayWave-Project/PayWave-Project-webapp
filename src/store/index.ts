@@ -8,13 +8,15 @@ interface AuthState {
   lastName: string | null;
   firstName: string | null;
   phoneNumber: string | null;
+  profileImage: string | null;
   setAuthInfo: (
     merchantId: string,
     merchantEmail: string,
     businessName: string,
     lastName: string,
     firstName: string,
-    phoneNumber: string
+    phoneNumber: string,
+    profileImage: string
   ) => void;
   removeAuthStore: () => void;
 }
@@ -28,13 +30,15 @@ export const useAuthStore = create(
       phoneNumber: null,
       merchantEmail: null,
       lastName: null,
+      profileImage: null,
       setAuthInfo: (
         merchantId,
         merchantEmail,
         businessName,
         lastName,
         firstName,
-        phoneNumber
+        phoneNumber,
+        profileImage
       ) =>
         set({
           merchantId,
@@ -43,6 +47,7 @@ export const useAuthStore = create(
           lastName,
           firstName,
           phoneNumber,
+          profileImage,
         }),
       removeAuthStore: () => {
         localStorage.removeItem("auth-storage");

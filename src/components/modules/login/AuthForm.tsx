@@ -10,13 +10,15 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useLoginMerchant } from "@/api/auth";
+import { useLoginMerchant, useSendOtp } from "@/api/auth";
 import { useAuthStore } from "@/store";
+import { isValidEmail } from "@/utils/validations";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function LoginForm({ className, ...props }: LoginFormProps) {
   const { mutateAsync, isLoading } = useLoginMerchant();
+  const { mutateAsync: sendOtp, isLoading: isLoadingOtp } = useSendOtp();
 
   const { toast } = useToast();
   const router = useRouter();
@@ -27,30 +29,26 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    // const handleSendOTP = async () => {
-    //   const emailError = isValidEmail(email);
-    //   if (emailError) {
-    //     toast({
-    //       title: emailError,
-    //       variant: "error",
-    //     });
-    //     return;
-    //   }
-    //   try {
-    //     const res = await sendOtp({
-    //       email: email,
-    //     });
-    //     toast({
-    //       title: res.data.message,
-    //       variant: "success",
-    //     });
-    //   } catch (error: any) {
-    //     toast({
-    //       title: error?.response?.data?.message || "Failed to send OTP",
-    //       variant: "error",
-    //     });
-    //   }
-    // };
+    const handleSendOTP = async () => {
+      const emailError = isValidEmail(email);
+      if (emailError) {
+        toast({
+          title: emailError,
+          variant: "error",
+        });
+        return;
+      }
+      try {
+        const res = await sendOtp({
+          email: email,
+        });
+      } catch (error: any) {
+        toast({
+          title: error?.response?.data?.message || "Failed to send OTP",
+          variant: "error",
+        });
+      }
+    };
 
     if (!email || !password) {
       toast({
@@ -75,6 +73,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       const merchantId = res.data.merchant.merchantId;
       const businessName = res.data.merchant.businessName;
       const phoneNumber = res.data.merchant.phoneNumber;
+      const profileImage = res.data.merchant.merchantPicture.url;
 
       Cookies.set("token", token);
       Cookies.set("id", id);
@@ -86,7 +85,8 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
           businessName,
           lastName,
           firstName,
-          phoneNumber
+          phoneNumber,
+          profileImage
         );
 
       setTimeout(() => {
@@ -113,7 +113,10 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
         errorMessage ===
         "Sorry Merchant not verified yet. Check your mail to verify your account!"
       ) {
-        router.push("/verify-account");
+        handleSendOTP();
+        setTimeout(() => {
+          router.push("/verify-account");
+        }, 1000);
       }
 
       toast({
@@ -121,7 +124,6 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
         description: errorMessage,
         variant: "error",
       });
-      console.log("Error:", error);
     }
   }
 
