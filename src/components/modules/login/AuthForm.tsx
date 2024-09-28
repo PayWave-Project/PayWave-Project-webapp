@@ -61,6 +61,9 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     try {
       const credentials = { email, password };
       const res = await mutateAsync(credentials);
+      if (res.data.error) {
+        throw new Error(res.data.error);
+      }
       toast({
         title: "Login successful!",
         variant: "success",
@@ -73,7 +76,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       const merchantId = res.data.merchant.merchantId;
       const businessName = res.data.merchant.businessName;
       const phoneNumber = res.data.merchant.phoneNumber;
-      const profileImage = res.data.merchant.merchantPicture.url;
+      const profileImage = res.data.merchant.merchantPicture?.url || "";
 
       Cookies.set("token", token);
       Cookies.set("id", id);
@@ -115,7 +118,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       ) {
         handleSendOTP();
         setTimeout(() => {
-          router.push("/verify-account");
+          router.push(`/verify-account?email=${encodeURIComponent(email)}`);
         }, 1000);
       }
 

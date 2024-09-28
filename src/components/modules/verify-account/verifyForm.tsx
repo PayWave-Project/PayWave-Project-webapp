@@ -4,17 +4,17 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useSendOtp, useVerifyOtp } from "@/api/auth";
 import OtpInput from "react-otp-input";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/common/Icons";
 import { isValidEmail } from "@/utils/validations";
 
 const VerifyForm = () => {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
   const { mutateAsync: sendOtp, isLoading: isSendingOtp } = useSendOtp();
   const { mutateAsync: verifyOtp, isLoading: isVerifyingOtp } = useVerifyOtp();
   const [formData, setFormData] = useState({
-    email: "",
     otp: "",
   });
   const [otpValue, setOtpValue] = useState("");
@@ -32,7 +32,14 @@ const VerifyForm = () => {
   };
 
   const handleSendOTP = async () => {
-    const emailError = isValidEmail(formData.email);
+    if (!email) {
+      toast({
+        title: "Email is required",
+        variant: "error",
+      });
+      return;
+    }
+    const emailError = isValidEmail(email);
     if (emailError) {
       toast({
         title: emailError,
@@ -42,7 +49,7 @@ const VerifyForm = () => {
     }
     try {
       const res = await sendOtp({
-        email: formData.email,
+        email,
       });
       toast({
         title: res.data.message,
@@ -58,12 +65,19 @@ const VerifyForm = () => {
 
   const handleVerifyOTP = async () => {
     try {
+      if (!email) {
+        toast({
+          title: "Email is required",
+          variant: "error",
+        });
+        return;
+      }
       const res = await verifyOtp({
-        email: formData.email,
+        email,
         otp: formData.otp,
       });
       toast({
-        title: res.data.message,
+        title: "Verification successful, proceed to login.",
         variant: "success",
       });
       router.push("/dashboard");
