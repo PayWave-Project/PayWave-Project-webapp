@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "PayWave",
@@ -10,9 +12,9 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <main>
-      <>{children}</>
-    </main>
-  );
+  const Cookies = cookies();
+  const token = Cookies.get("token");
+
+  if (token) redirect("/dashboard");
+  return <main className="flex justify-center items-center">{children}</main>;
 }
