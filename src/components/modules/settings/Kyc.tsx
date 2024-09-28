@@ -25,7 +25,7 @@ export const KYC = () => {
       toast({
         title: "Success",
         description: "KYC submitted successfully",
-        variant: "default",
+        variant: "success",
       });
     } catch (error) {
       toast({

@@ -31,7 +31,7 @@ const BankDetailsModal = () => {
         <div className="h-[200px] flex items-center justify-center">
           <Loader2 className="w-6 h-6 animate-spin" />
         </div>
-      ) : bankDetails ? (
+      ) : bankDetails && bankDetails.accountName ? (
         <>
           <div>
             <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -78,7 +78,7 @@ const BankDetailsModal = () => {
         </>
       ) : (
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          No details found
+          Complete your KYC to create a virtual account.
         </p>
       )}
     </div>
