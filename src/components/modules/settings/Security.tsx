@@ -18,6 +18,11 @@ export const Security = () => {
         authPIN: newPin,
       };
       const res = await changeAuthPin(payload);
+      toast({
+        title: "Success",
+        description: "Auth pin changed successfully",
+        variant: "success",
+      });
     } catch (error) {
       toast({
         title: "Error",

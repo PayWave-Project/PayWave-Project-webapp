@@ -1,6 +1,7 @@
 "use client";
 
 import Cookies from "js-cookie";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useSignOutMerchant } from "@/api/auth";
 import { useToast } from "@/hooks/use-toast";
@@ -15,6 +16,7 @@ interface ConfirmLogoutModalProps {
 const ConfirmLogoutModal: React.FC<ConfirmLogoutModalProps> = ({
   onCancel,
 }) => {
+  const queryClient = useQueryClient();
   const removeAuthStore = useAuthStore((state) => state.removeAuthStore);
   const { mutateAsync, isLoading } = useSignOutMerchant();
 
@@ -30,6 +32,7 @@ const ConfirmLogoutModal: React.FC<ConfirmLogoutModalProps> = ({
       Cookies.remove("token");
       Cookies.remove("id");
       removeAuthStore();
+      queryClient.clear();
 
       router.push("/login");
     } catch (error) {
