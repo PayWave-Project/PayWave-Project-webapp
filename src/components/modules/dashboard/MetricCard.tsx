@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Eye, EyeOff, RefreshCcw } from "lucide-react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TrendingDown, TrendingUp } from "lucide-react";
+import { useGetBalance } from "@/api/wallet";
 
 interface MetricCardProps {
   title: string;
@@ -17,51 +18,40 @@ interface StatCardProps {
   isHidden: boolean;
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ title }) => {
+const MetricCard: React.FC<MetricCardProps> = () => {
+  const { data, refetch, isLoading, isFetching } = useGetBalance();
+  const balance = data?.data.balance;
   const [isHidden, setIsHidden] = useLocalStorage(
-    `metricHidden_${title}`,
+    `metricHidden_Total_Balance`,
     true
   );
   const [displayValue, setDisplayValue] = useState("0");
-  const [isLoading, setIsLoading] = useState(true);
-
-  const generateRandomValue = () => {
-    return Math.floor(Math.random() * (10000000 - 10000 + 1) + 10000);
-  };
 
   const formatNumber = (num: number): string => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const loadValue = () => {
-    setIsLoading(true);
-    setDisplayValue("0");
-    setTimeout(() => {
-      setDisplayValue(formatNumber(generateRandomValue()));
-      setIsLoading(false);
-    }, 2000);
-  };
-
   useEffect(() => {
-    loadValue();
-  }, []);
+    if (balance) {
+      setDisplayValue(formatNumber(balance));
+    }
+  }, [balance]);
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 lg:gap-6 gap-4">
+    <div className="grid grid-cols-2 lg:gap-6 gap-4">
       <div className="col-span-2 lg:col-span-1">
         <MainMetricCard
-          title={title}
           isHidden={isHidden}
           displayValue={displayValue}
-          isLoading={isLoading}
+          isLoading={isFetching}
           onToggleVisibility={() => setIsHidden(!isHidden)}
-          onRefresh={loadValue}
+          onRefresh={refetch}
         />
       </div>
-      <div className="col-span-1 hidden md:block">
+      {/* <div className="col-span-1 hidden md:block">
         <StatCard
           title="Total Deposits"
-          value="₦2,600,950.00"
+          value={displayValue}
           trend="down"
           isHidden={isHidden}
         />
@@ -69,33 +59,25 @@ const MetricCard: React.FC<MetricCardProps> = ({ title }) => {
       <div className="col-span-1 hidden md:block">
         <StatCard
           title="Total Withdrawal"
-          value="₦920,000.00"
+          value={displayValue}
           trend="up"
           isHidden={isHidden}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
 
 const MainMetricCard: React.FC<{
-  title: string;
   isHidden: boolean;
   displayValue: string;
   isLoading: boolean;
   onToggleVisibility: () => void;
   onRefresh: () => void;
-}> = ({
-  title,
-  isHidden,
-  displayValue,
-  isLoading,
-  onToggleVisibility,
-  onRefresh,
-}) => (
+}> = ({ isHidden, displayValue, isLoading, onToggleVisibility, onRefresh }) => (
   <div className="bg-primary flex justify-between text-white lg:p-6 p-4 rounded-lg shadow">
     <div>
-      <h3 className="text-[16px] font-semibold mb-5">{title}</h3>
+      <h3 className="text-[16px] font-semibold mb-5">Total Balance</h3>
       <div className="flex justify-between items-center">
         <p className="text-3xl font-bold">
           {isHidden ? "******" : `₦${displayValue}`}
@@ -136,7 +118,7 @@ const StatCard: React.FC<StatCardProps> = ({
         {title}
       </h3>
       <p className="text-2xl font-bold text-nowrap break-words dark:text-white">
-        {isHidden ? "******" : value}
+        {isHidden ? "******" : `₦${value}`}
       </p>
     </div>
     <div className="flex flex-col items-end">

@@ -8,4 +8,5 @@ export type TransactionType = {
   description: string;
   fee: number;
   status: string;
+  time: string;
 };

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import Image from "next/image";
 
-import { RegisterForm } from "@/components/modules/register/RegisterForm";
 import LoginSidebar from "@/components/modules/login/LoginSidebar";
 import Logo from "@/assets/icons/Logo-main.png";
 
 import LogoWhite from "@/assets/icons/Logo-main-white.png";
+import RegisterForm from "@/components/modules/register/RegisterForm";
 
 export const metadata: Metadata = {
   title: "PayWave | Login",
