@@ -76,6 +76,11 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       const merchantId = res.data.merchant.merchantId;
       const businessName = res.data.merchant.businessName;
       const phoneNumber = res.data.merchant.phoneNumber;
+      const emailAddress = res.data.merchant.email;
+
+      Cookies.set("token", token);
+      Cookies.set("merchant_id", merchantId);
+      localStorage.setItem('wave_email', emailAddress)
       const profileImage = res.data.merchant.merchantPicture?.url || "";
 
       Cookies.set("token", token);
