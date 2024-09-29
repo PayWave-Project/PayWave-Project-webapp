@@ -8,16 +8,19 @@ import {
   useState,
 } from "react";
 import { Check, ChevronDown, MoreHorizontal } from "lucide-react";
-import { transactions } from "@/types/data";
-import { TransactionType } from "@/interfaces/transaction";
 import TransactionModal from "@/components/modals/TransactionModal";
+import { useGetTransactionHistory } from "@/api/wallet";
+import { transactionHistory } from "@/components/modules/dashboard/RecentTransactions";
 
 const TransactionsPage = () => {
+  const { data, isLoading } = useGetTransactionHistory();
+  const transactions = (data?.data?.data as transactionHistory[]) || [];
+
   const [typeFilter, setTypeFilter] = useState("All types");
   const [statusFilter, setStatusFilter] = useState("All status");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [selectedTransaction, setSelectedTransaction] =
-    useState<TransactionType | null>(null);
+    useState<transactionHistory | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 10;
@@ -98,7 +101,7 @@ const TransactionsPage = () => {
     }
   };
 
-  const openModal = (transaction: TransactionType) => {
+  const openModal = (transaction: transactionHistory) => {
     setSelectedTransaction(transaction);
   };
 
@@ -159,7 +162,11 @@ const TransactionsPage = () => {
         </div>
       </div>
       <div className="overflow-x-auto">
-        {filteredTransactions.length > 0 ? (
+        {isLoading ? (
+          <div className="h-[400px] flex justify-center items-center py-8">
+            <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+          </div>
+        ) : filteredTransactions.length > 0 ? (
           <>
             <table className="min-w-full divide-y divide-gray-400 dark:divide-gray-600">
               <thead className="bg-gray-50 dark:bg-gray-900">
@@ -189,14 +196,13 @@ const TransactionsPage = () => {
                   <tr key={transaction.reference || index}>
                     <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="size-10 rounded-full bg-gray-200 dark:bg-gray-800 mr-2"></div>
                         <div className="flex flex-col gap-0.5 text-gray-800 dark:text-white">
                           <p className="text-base font-bold">
-                            {transaction.user}
+                            {transaction.reference}
                           </p>
 
                           <p className="text-sm font-medium text-gray-500">
-                            {transaction.name}
+                            {transaction.reference}
                           </p>
                         </div>
                       </div>
@@ -215,16 +221,16 @@ const TransactionsPage = () => {
                     <td className="flex flex-col gap-0.5 px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                       ₦{transaction.amount.toFixed(2)}
                       <span className="text-xs text-gray-400">
-                        (₦{transaction.fee.toFixed(2)})
+                        (₦{transaction.amount.toFixed(2)})
                       </span>
                     </td>
                     <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                       <span
                         className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-lg 
         ${
-          transaction.status === "Success"
+          transaction.status === "success"
             ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-            : transaction.status === "Pending"
+            : transaction.status === "pending"
             ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
             : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
         }`}

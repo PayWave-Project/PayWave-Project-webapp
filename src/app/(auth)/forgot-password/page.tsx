@@ -2,17 +2,16 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 
-import { LoginForm } from "@/components/modules/login/AuthForm";
-import LoginSidebar from "@/components/modules/login/LoginSidebar";
 import Logo from "@/assets/icons/Logo-main.png";
 import LogoWhite from "@/assets/icons/Logo-main-white.png";
+import ForgotPasswordForm from "@/components/modules/forgot-password/AuthForm";
 
 export const metadata: Metadata = {
-  title: "PayWave | Login",
+  title: "PayWave | Forgot Password",
   description: "The future of contactless payments.",
 };
 
-const LoginPage = () => {
+const ForgotPassword = () => {
   return (
     <section className="container relative h-screen items-center justify-between flex lg:flex-row flex-col lg:max-w-[1440px] px-10 md:px-20 lg:px-0">
       <div className="lg:p-8 h-full w-full flex flex-col justify-center items-center">
@@ -32,11 +31,8 @@ const LoginPage = () => {
               height={50}
               className="relative z-10 hidden dark:block"
             />
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Log in to your account
-            </h1>
           </div>
-          <LoginForm />
+          <ForgotPasswordForm />
           <Link
             href="/register"
             className="text-center text-sm text-muted-foreground"
@@ -48,9 +44,8 @@ const LoginPage = () => {
           </Link>
         </div>
       </div>
-      <LoginSidebar />
     </section>
   );
 };
 
-export default LoginPage;
+export default ForgotPassword;

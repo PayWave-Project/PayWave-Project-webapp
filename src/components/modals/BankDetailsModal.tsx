@@ -1,20 +1,21 @@
 "use client";
 
-import { Copy } from "lucide-react";
+import { Copy, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useGetDepositAccount } from "@/api/wallet";
+
+type BankAccountDetails = {
+  accountName: string;
+  accountNumber: string;
+  bankName: string;
+  bankCode: string;
+};
 
 const BankDetailsModal = () => {
+  const { data, isLoading } = useGetDepositAccount();
+  const bankDetails: BankAccountDetails = data?.data?.data;
+
   const { toast } = useToast();
-
-  const bankDetails = {
-    accountName: "John Doe",
-    accountNumber: "0123456789",
-    bankName: "wema",
-    accountStatus: "Active",
-    currency: "NGN",
-  };
-
-  const isActive = bankDetails.accountStatus.toLowerCase() === "active";
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -26,45 +27,60 @@ const BankDetailsModal = () => {
 
   return (
     <div className="space-y-4">
-      <div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Account Status
-        </p>
-        <p
-          className={`font-medium ${
-            isActive ? "text-green-500" : "text-red-500"
-          }`}
-        >
-          {bankDetails.accountStatus}
-        </p>
-      </div>
-      <div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Account Name</p>
-        <p className="font-medium">{bankDetails.accountName}</p>
-      </div>
-      <div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Account Number
-        </p>
-        <div className="flex items-center">
-          <p className="font-medium">{bankDetails.accountNumber}</p>
-          <button
-            onClick={() => copyToClipboard(bankDetails.accountNumber)}
-            className="ml-2 text-gray-500 hover:text-gray-700"
-          >
-            <Copy className="h-4 w-4" />
-          </button>
+      {isLoading ? (
+        <div className="h-[200px] flex items-center justify-center">
+          <Loader2 className="w-6 h-6 animate-spin" />
         </div>
-      </div>
-      <div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Bank Name</p>
-        <p className="font-medium">{bankDetails.bankName}</p>
-      </div>
-
-      <div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Currency</p>
-        <p className="font-medium">{bankDetails.currency}</p>
-      </div>
+      ) : bankDetails && bankDetails.accountName ? (
+        <>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Account Status
+            </p>
+            <p className={`font-medium ${"text-green-500"}`}>Active</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Account Name
+            </p>
+            <p className="font-medium">{bankDetails.accountName}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Account Number
+            </p>
+            <div className="flex items-center">
+              <p className="font-medium">{bankDetails.accountNumber}</p>
+              <button
+                onClick={() => copyToClipboard(bankDetails.accountNumber)}
+                className="ml-2 text-gray-500 hover:text-gray-700"
+              >
+                <Copy className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Bank Name
+            </p>
+            <p className="font-medium">{bankDetails.bankName}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Currency</p>
+            <p className="font-medium">NGN</p>
+          </div>
+          <div className="mt-6">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Please make a transfer to this account to add money to your
+              wallet.
+            </p>
+          </div>
+        </>
+      ) : (
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          Complete your KYC to create a virtual account.
+        </p>
+      )}
     </div>
   );
 };

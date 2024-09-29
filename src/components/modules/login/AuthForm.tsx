@@ -10,13 +10,16 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useLoginMerchant } from "@/api/auth";
+import { useLoginMerchant, useSendOtp } from "@/api/auth";
 import { useAuthStore } from "@/store";
+import { isValidEmail } from "@/utils/validations";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function LoginForm({ className, ...props }: LoginFormProps) {
   const { mutateAsync, isLoading } = useLoginMerchant();
+  const { mutateAsync: sendOtp, isLoading: isLoadingOtp } = useSendOtp();
+
   const { toast } = useToast();
   const router = useRouter();
 
@@ -25,6 +28,27 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     const formData = new FormData(event.target as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
+    const handleSendOTP = async () => {
+      const emailError = isValidEmail(email);
+      if (emailError) {
+        toast({
+          title: emailError,
+          variant: "error",
+        });
+        return;
+      }
+      try {
+        const res = await sendOtp({
+          email: email,
+        });
+      } catch (error: any) {
+        toast({
+          title: error?.response?.data?.message || "Failed to send OTP",
+          variant: "error",
+        });
+      }
+    };
 
     if (!email || !password) {
       toast({
@@ -37,13 +61,19 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     try {
       const credentials = { email, password };
       const res = await mutateAsync(credentials);
+      if (res.data.error) {
+        throw new Error(res.data.error);
+      }
       toast({
         title: "Login successful!",
         variant: "success",
       });
       const token = res.data.token;
-      const merchant_id = res.data.merchant.userId;
+      const id = res.data.merchant._id;
       const firstName = res.data.merchant.firstName;
+      const lastName = res.data.merchant.lastName;
+      const merchantEmail = res.data.merchant.email;
+      const merchantId = res.data.merchant.merchantId;
       const businessName = res.data.merchant.businessName;
       const phoneNumber = res.data.merchant.phoneNumber;
       const emailAddress = res.data.merchant.email;
@@ -52,6 +82,21 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       Cookies.set("merchant_id", merchant_id);
       useAuthStore.getState().setAuthInfo(businessName, firstName, phoneNumber, emailAddress);
       localStorage.setItem('wave_email', emailAddress)
+      const profileImage = res.data.merchant.merchantPicture?.url || "";
+
+      Cookies.set("token", token);
+      Cookies.set("id", id);
+      useAuthStore
+        .getState()
+        .setAuthInfo(
+          merchantId,
+          merchantEmail,
+          businessName,
+          lastName,
+          firstName,
+          phoneNumber,
+          profileImage
+        );
 
       setTimeout(() => {
         router.push("/dashboard");
@@ -73,12 +118,21 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
         errorMessage = "Invalid credentials";
       }
 
+      if (
+        errorMessage ===
+        "Sorry Merchant not verified yet. Check your mail to verify your account!"
+      ) {
+        handleSendOTP();
+        setTimeout(() => {
+          router.push(`/verify-account?email=${encodeURIComponent(email)}`);
+        }, 1000);
+      }
+
       toast({
         title: "Login failed.",
         description: errorMessage,
         variant: "error",
       });
-      console.log("Error:", error);
     }
   }
 
@@ -87,13 +141,10 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       <form onSubmit={onSubmit}>
         <div className="grid">
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
-            </Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               name="email"
-              placeholder="name@example.com"
               type="email"
               autoCapitalize="none"
               autoComplete="email"
@@ -102,13 +153,10 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
             />
           </div>
           <div className="grid gap-1 mt-8">
-            <Label className="sr-only" htmlFor="email">
-              Password
-            </Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               name="password"
-              placeholder="Password"
               type="password"
               autoCapitalize="none"
               autoComplete="password"

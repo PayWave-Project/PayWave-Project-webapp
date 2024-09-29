@@ -90,7 +90,6 @@ export function validateForm(data: any): any {
 
 export function validateBusinessForm(data: any): any {
   const errors: any = {};
-  console.log(data);
   errors.businessName = isValidBusinessName(data.businessName);
   errors.rcNumber = isValidRCNumber(data.rcNumber);
   errors.bvn = isValidBVN(data.bvn);
