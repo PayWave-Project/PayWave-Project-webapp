@@ -46,10 +46,12 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
       const firstName = res.data.merchant.firstName;
       const businessName = res.data.merchant.businessName;
       const phoneNumber = res.data.merchant.phoneNumber;
+      const emailAddress = res.data.merchant.email;
 
       Cookies.set("token", token);
       Cookies.set("merchant_id", merchant_id);
-      useAuthStore.getState().setAuthInfo(businessName, firstName, phoneNumber);
+      useAuthStore.getState().setAuthInfo(businessName, firstName, phoneNumber, emailAddress);
+      localStorage.setItem('wave_email', emailAddress)
 
       setTimeout(() => {
         router.push("/dashboard");
