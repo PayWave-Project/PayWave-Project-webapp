@@ -12,6 +12,8 @@ import {
   SendIcon,
   ChevronRight,
   ChevronLeft,
+  Bell,
+  ScanLine
 } from "lucide-react";
 
 import logo from "@/assets/icons/Logo-main.png";
@@ -24,8 +26,8 @@ import { Icons } from "./Icons";
 export const mainMenuItems = [
   { href: "/dashboard", icon: Home, label: "Dashboard" },
   { href: "/payments", icon: SendIcon, label: "Payments" },
-  { href: "/payments/create-qr", icon: Icons.qrcode, label: "Create QR" },
-  // { href: "/payments/scan-qr", icon: ScanLine, label: "Scan QR" },
+  { href: "/create-qr", icon: Icons.qrcode, label: "Create QR" },
+  { href: "/scan-qr", icon: ScanLine, label: "Scan QR" },
   // { href: "/transactions", icon: FileText, label: "Transactions" },
   { href: "/wallet", icon: Wallet, label: "My Wallet" },
   { href: "/notifications", icon: Bell, label: "Notifications" },
