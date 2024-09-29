@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useSendOtp, useVerifyOtp } from "@/api/auth";
+import { useSendOtp, useVerifyMerchantOTP } from "@/api/auth";
 import OtpInput from "react-otp-input";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
@@ -13,7 +13,8 @@ const VerifyForm = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const { mutateAsync: sendOtp, isLoading: isSendingOtp } = useSendOtp();
-  const { mutateAsync: verifyOtp, isLoading: isVerifyingOtp } = useVerifyOtp();
+  const { mutateAsync: verifyOtp, isLoading: isVerifyingOtp } =
+    useVerifyMerchantOTP();
   const [formData, setFormData] = useState({
     otp: "",
   });
@@ -66,16 +67,9 @@ const VerifyForm = () => {
   const handleVerifyOTP = async () => {
     try {
       if (!email) {
-        toast({
-          title: "Email is required",
-          variant: "error",
-        });
-        return;
+        throw new Error("Email is required");
       }
-      const res = await verifyOtp({
-        email,
-        otp: formData.otp,
-      });
+      await verifyOtp({ email, otp: formData.otp });
       toast({
         title: "Verification successful, proceed to login.",
         variant: "success",

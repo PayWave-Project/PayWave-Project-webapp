@@ -25,7 +25,7 @@ const QuickAction = () => {
     } else if (action.title === "Withdraw") {
       setIsWithdrawModalOpen(true);
     } else {
-      console.log("Action not implemented");
+      window.location.href = action.href;
     }
   };
 

@@ -13,7 +13,7 @@ import {
   ChevronRight,
   ChevronLeft,
   Bell,
-  ScanLine
+  ScanLine,
 } from "lucide-react";
 
 import logo from "@/assets/icons/Logo-main.png";
@@ -29,13 +29,13 @@ export const mainMenuItems = [
   { href: "/create-qr", icon: Icons.qrcode, label: "Create QR" },
   { href: "/scan-qr", icon: ScanLine, label: "Scan QR" },
   // { href: "/transactions", icon: FileText, label: "Transactions" },
-  { href: "/wallet", icon: Wallet, label: "My Wallet" },
+  // { href: "/wallet", icon: Wallet, label: "My Wallet" },
   { href: "/notifications", icon: Bell, label: "Notifications" },
 ];
 
 export const subMenuItems = [
   { href: "/settings", icon: Settings, label: "Setting" },
-  { href: "/help", icon: HelpCircle, label: "Help Center" },
+  // { href: "/help", icon: HelpCircle, label: "Help Center" },
 ];
 
 const Sidebar = () => {

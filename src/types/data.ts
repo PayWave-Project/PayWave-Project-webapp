@@ -1,6 +1,6 @@
 export const quickActions = [
   {
-    href: "/payments/create-qr",
+    href: "/create-qr",
     icon: "qrcode",
     title: "Create QR Code",
     description: "Create a QR code to receive payments",

@@ -69,6 +69,25 @@ export const useRegisterMerchant = () => {
   return { mutate, mutateAsync, isLoading, data };
 };
 
+export const useVerifyMerchantOTP = () => {
+  const mutationFn = async (payload: VerifyOtpType) => {
+    const config = getConfig();
+
+    const data = payload;
+
+    return await axios.post(`${baseUrl}/verify-merchant`, data, config);
+  };
+
+  const {
+    mutate,
+    mutateAsync,
+    isPending: isLoading,
+    data,
+  } = useMutation({ mutationFn: mutationFn });
+
+  return { mutate, mutateAsync, isLoading, data };
+};
+
 export const useResendOtp = () => {
   const mutationFn = async () => {
     const config = getConfig();

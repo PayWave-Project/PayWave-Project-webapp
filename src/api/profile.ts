@@ -12,6 +12,16 @@ type AddPinType = {
   authPIN: string;
 };
 
+export type NotificationsType = {
+  _id: string;
+  merchant: string;
+  email: string;
+  subject: string;
+  message: string;
+  date: string;
+  time: string;
+};
+
 export const useUpdateMerchantKyc = () => {
   const mutationFn = async (payload: MerchantKycType) => {
     const config = getConfig();

@@ -12,7 +12,8 @@ const DynamicHeaderText = () => {
   const isDashboardPage = pathname === "/dashboard";
   const isTransactionsPage = pathname === "/transactions";
   const isPaymentPage = pathname === "/payments";
-  const isCreateQrPage = pathname === "/payments/create-qr";
+  const isCreateQrPage = pathname === "/create-qr";
+  const isScanQrPage = pathname === "/scan-qr";
   const isNotificationsPage = pathname === "/notifications";
   const isSettingsPage = pathname === "/settings";
   const isWalletPage = pathname === "/wallet";
