@@ -21,6 +21,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
       variant: "success",
     });
   };
+
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-md w-full shadow-lg">
       <div className="flex justify-between items-center mb-4">
@@ -86,9 +87,9 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
         <span
           className={`px-3 py-1 text-sm font-semibold rounded-full 
     ${
-      transaction.status === "Success"
+      transaction.status === "success"
         ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-        : transaction.status === "Pending"
+        : transaction.status === "pending"
         ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
         : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
     }`}

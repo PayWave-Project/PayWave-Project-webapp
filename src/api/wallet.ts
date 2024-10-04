@@ -77,11 +77,13 @@ export const useWithdrawMoney = () => {
   return { mutate, mutateAsync, isLoading, data };
 };
 
-export const useGetTransactionHistory = () => {
+export const useGetTransactionHistory = (page: number) => {
   const queryFn = async () => {
     const config = getConfig();
-
-    return await axios.get(`${baseUrl}/transaction-history`, config);
+    return await axios.get(
+      `${baseUrl}/transaction-history?page=${page}`,
+      config
+    );
   };
   const { data, refetch, isLoading, isFetching, isError, error } = useQuery({
     queryKey: ["transaction-history"],

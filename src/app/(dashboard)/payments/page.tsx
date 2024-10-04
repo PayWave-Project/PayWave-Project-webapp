@@ -25,9 +25,6 @@ import { useGetTransactionHistory } from "@/api/wallet";
 import { transactionHistory } from "@/components/modules/dashboard/RecentTransactions";
 
 const TransactionsPage = () => {
-  const { data, isLoading } = useGetTransactionHistory();
-  const transactions = (data?.data?.data as transactionHistory[]) || [];
-
   const [typeFilter, setTypeFilter] = useState("All types");
   const [statusFilter, setStatusFilter] = useState("All status");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -41,6 +38,36 @@ const TransactionsPage = () => {
 
   const typeDropdownRef = useRef<HTMLDivElement | null>(null);
   const statusDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { data, refetch } = useGetTransactionHistory(currentPage);
+  const transactions = (data?.data?.data as transactionHistory[]) || [];
+  const pagination = data?.data?.pagination;
+
+  console.log(transactions);
+
+  const handleNextPage = () => {
+    if (pagination && currentPage < pagination.totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      await refetch();
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [currentPage, refetch]);
 
   const handleOutsideClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -98,20 +125,6 @@ const TransactionsPage = () => {
     indexOfFirstTransaction,
     indexOfLastTransaction
   );
-
-  const handleNextPage = () => {
-    if (
-      currentPage < Math.ceil(filteredTransactions.length / transactionsPerPage)
-    ) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
 
   const openModal = (transaction: transactionHistory) => {
     setSelectedTransaction(transaction);
@@ -202,7 +215,11 @@ const TransactionsPage = () => {
         </div>
       </div>
       <div className="overflow-x-auto">
-        {filteredTransactions.length > 0 ? (
+        {isLoading ? (
+          <div className="h-[400px] flex justify-center items-center py-8">
+            <p className="text-gray-500 dark:text-gray-400">Loading...</p>
+          </div>
+        ) : filteredTransactions.length > 0 ? (
           <>
             <table className="min-w-full divide-y divide-gray-400 dark:divide-gray-600">
               <thead className="bg-gray-50 dark:bg-gray-900">
@@ -228,7 +245,7 @@ const TransactionsPage = () => {
                 </tr>
               </thead>
               <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-400 dark:divide-gray-600">
-                {currentTransactions.map((transaction, index) => (
+                {filteredTransactions.map((transaction, index) => (
                   <tr key={transaction.reference || index}>
                     <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -288,15 +305,11 @@ const TransactionsPage = () => {
                 Previous
               </button>
               <span className="text-sm text-gray-500 dark:text-white">
-                Page {currentPage} of{" "}
-                {Math.ceil(filteredTransactions.length / transactionsPerPage)}
+                Page {currentPage} of {pagination?.totalPages || 1}
               </span>
               <button
                 onClick={handleNextPage}
-                disabled={
-                  currentPage ===
-                  Math.ceil(filteredTransactions.length / transactionsPerPage)
-                }
+                disabled={!pagination || currentPage === pagination.totalPages}
                 className="text-sm text-primary disabled:opacity-50"
               >
                 Next
