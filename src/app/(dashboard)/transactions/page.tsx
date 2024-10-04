@@ -24,7 +24,7 @@ const TransactionsPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 10;
-  const types = ["All types", "Withdrawal", "Deposit", "Transfer"];
+  const types = ["All types", "Withdrawal", "Deposit", "transfer"];
   const statuses = ["All status", "Success", "Pending", "Failed"];
 
   const typeDropdownRef = useRef<HTMLDivElement | null>(null);

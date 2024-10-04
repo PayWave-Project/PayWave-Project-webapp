@@ -33,7 +33,13 @@ const TransactionsPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 10;
-  const types = ["All types", "Withdrawal", "Deposit", "Transfer"];
+  const types = [
+    "All types",
+    "withdrawal",
+    "Static Defined",
+    "Transfer",
+    "Static Custom",
+  ];
   const statuses = ["All status", "Success", "Pending", "Failed"];
 
   const typeDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -97,9 +103,14 @@ const TransactionsPage = () => {
   }, [typeDropdownRef, statusDropdownRef]);
 
   const filteredTransactions = transactions.filter((t) => {
-    const typeMatch = typeFilter === "All types" || t.type === typeFilter;
+    const normalizeType = (type: string) =>
+      type.toLowerCase().replace(/_/g, " ");
+    const typeMatch =
+      typeFilter === "All types" ||
+      normalizeType(t.type) === normalizeType(typeFilter);
     const statusMatch =
-      statusFilter === "All status" || t.status === statusFilter;
+      statusFilter === "All status" ||
+      t.status.toLowerCase() === statusFilter.toLowerCase();
     return typeMatch && statusMatch;
   });
 
@@ -265,7 +276,8 @@ const TransactionsPage = () => {
                       </div>
                     </td>
                     <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-white">
-                      {transaction.type}
+                      {transaction.type.charAt(0).toUpperCase() +
+                        transaction.type.slice(1)}
                     </td>
                     <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                       ₦{transaction.amount.toFixed(2)}
