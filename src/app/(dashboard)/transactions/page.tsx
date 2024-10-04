@@ -13,7 +13,7 @@ import { useGetTransactionHistory } from "@/api/wallet";
 import { transactionHistory } from "@/components/modules/dashboard/RecentTransactions";
 
 const TransactionsPage = () => {
-  const { data, isLoading } = useGetTransactionHistory();
+  const { data, isLoading } = useGetTransactionHistory(1);
   const transactions = (data?.data?.data as transactionHistory[]) || [];
 
   const [typeFilter, setTypeFilter] = useState("All types");

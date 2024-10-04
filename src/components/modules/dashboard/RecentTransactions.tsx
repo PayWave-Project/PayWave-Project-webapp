@@ -12,7 +12,7 @@ export type transactionHistory = {
 };
 
 const RecentTransactions = () => {
-  const { data, isLoading } = useGetTransactionHistory();
+  const { data, isLoading } = useGetTransactionHistory(1);
 
   const transactions = (data?.data?.data as transactionHistory[]) || [];
 
